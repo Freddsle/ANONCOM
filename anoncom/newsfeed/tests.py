@@ -12,12 +12,12 @@ class AllPostIndexViewTests(TestCase):
         """
         response = self.client.get(reverse('newsfeed:index'))
         self.assertEqual(response.status_code, 200)
-        # self.assertContains(response, "No posts are available.")
+        self.assertContains(response, "No posts are available.")
         self.assertQuerysetEqual(response.context['latest_post_list'], [])
 
 
 class PostModelTest(TestCase):
-    
+
     def setUp(self):
         AllPost.objects.create(post_title='just a test', post_text='a', post_author='a', pub_date='2021-04-27')
 
