@@ -1,20 +1,29 @@
+{% load static %}
+
 <h1> About project </h1>
 
 <p> ... </p>
 
-<hr>
-<hr>
-
-<h1> Latest posts: </h1>
+<header>
+    <div class="nav-left">
+        <h1>Latest posts:</h1>
+    </div>
+    <div class="nav-right">
+        <a href="{% url 'newsfeed:post_new' %}"> + New Blog Post </a>
+    </div>
+</header>
 
 {% if latest_post_list %}
     <ul>
     {% for post in latest_post_list %}
-        <li style="font-size:25px"><a href="{% url 'newsfeed:detail' post.id %}">{{ post.post_title }}</a></li>
-        <p>{{ post.post_text }}</p>
+        <div class="post-entry">
+            <h2><a href="{% url 'newsfeed:detail' post.id %}" >{{ post.post_title }}</a></h2>
+            <p>{{ post.post_text }}</p>
+        </div>
         <hr>
     {% endfor %}
     </ul>
 {% else %}
     <p>No posts are available.</p>
 {% endif %}
+

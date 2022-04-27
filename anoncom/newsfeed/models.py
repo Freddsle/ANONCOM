@@ -8,7 +8,7 @@ class AllPost(models.Model):
     post_title = models.CharField(max_length=50)
     post_text = models.CharField(max_length=1000)
     post_author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
-    pub_date = models.DateTimeField('date published')
+    pub_date = models.DateTimeField('date published', default=timezone.now, editable=False)
     likes = models.IntegerField(default=0)
 
     def __str__(self):
@@ -23,6 +23,7 @@ class Comment(models.Model):
     post_title = models.ForeignKey(AllPost, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=500)
     comment_author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    pub_date = models.DateTimeField('date published', default=timezone.now, editable=False)
     likes = models.IntegerField(default=0)
 
     def __str__(self):

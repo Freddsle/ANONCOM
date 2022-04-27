@@ -4,6 +4,7 @@ from django.utils import timezone
 from .models import AllPost, Comment
 
 
+
 class IndexView(generic.ListView):
     template_name = 'newsfeed/index.html'
     context_object_name = 'latest_post_list'
@@ -21,3 +22,9 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = AllPost
     template_name = 'newsfeed/detail.html'
+
+
+class BlogCreateView(generic.edit.CreateView):
+    model = AllPost
+    template_name = 'newsfeed/post_new.html'
+    fields = ['post_title', 'post_author', 'post_text']
