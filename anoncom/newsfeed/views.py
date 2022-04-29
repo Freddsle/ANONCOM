@@ -1,5 +1,6 @@
 from django.views import generic
 from django.utils import timezone
+from django.urls import reverse_lazy
 
 from .models import AllPost, Comment
 
@@ -35,3 +36,10 @@ class PostUpdateView(generic.edit.UpdateView):
     template_name = 'newsfeed/post_edit.html'
     context_object_name = 'post'
     fields = ['post_title', 'post_text']
+
+
+class PostDeleteView(generic.edit.DeleteView):
+    model = AllPost
+    template_name = 'newsfeed/post_delete.html'
+    context_object_name = 'post'
+    success_url = reverse_lazy('newsfeed:index')

@@ -3,7 +3,8 @@
         <h2>{{ post.post_title }}</h2>
         <p>{{ post.post_text }}</p>
     </div>
-    <a href="{% url 'newsfeed:post_edit' post.pk %}">+ Edit Blog Post</a>
+    <a href="{% url 'newsfeed:post_edit' post.pk %}">Edit Post</a>
+    <p><a href="{% url 'newsfeed:post_delete' post.pk %}">! Delete Post !</a></p>
         
     <h1> Comments: </h1>
 
