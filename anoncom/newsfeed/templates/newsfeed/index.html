@@ -9,7 +9,7 @@
         <h1>Latest posts:</h1>
     </div>
     <div class="nav-right">
-        <a href="{% url 'newsfeed:post_new' %}"> + New Blog Post </a>
+        <a href="{% url 'newsfeed:post_new' %}"> + Create New Post </a>
     </div>
 </header>
 
@@ -17,7 +17,7 @@
     <ul>
     {% for post in latest_post_list %}
         <div class="post-entry">
-            <h2><a href="{% url 'newsfeed:detail' post.id %}" >{{ post.post_title }}</a></h2>
+            <h2><a href="{% url 'newsfeed:detail' post.id %}">{{ post.post_title }}</a></h2>
             <p>{{ post.post_text }}</p>
         </div>
         <hr>
