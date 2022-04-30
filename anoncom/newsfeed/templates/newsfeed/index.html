@@ -1,0 +1,37 @@
+{% load static %}
+
+{% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+    <p><a href="{% url 'logout' %}">Log out</a></p>
+{% endif %}  
+
+<h1> About project </h1>
+
+<p> ... </p>
+
+<header>
+    {% if user.is_authenticated %}
+        <h2><a href="{% url 'newsfeed:post_new' %}"> + Create New Post</a></h2>
+    {% else %}
+        <p>Welcome, new user.</p> 
+        <p><a href="{% url 'login' %}"> Please log in.</a> or <a href="{% url 'accounts:signup' %}"> Register.</a></p>
+    {% endif %}
+
+    <h1>Latest posts:</h1>
+</header>
+
+
+{% if latest_post_list %}
+    <ul>
+    {% for post in latest_post_list %}
+        <div class="post-entry">
+            <h2><a href="{% url 'newsfeed:detail' post.id %}">{{ post.post_title }}</a></h2>
+            <p>{{ post.post_text }}</p>
+        </div>
+        <hr>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No posts are available.</p>
+{% endif %}
+
