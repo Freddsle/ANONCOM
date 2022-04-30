@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from .models import AllPost, Comment
 
+
 class IndexView(generic.ListView):
     template_name = 'newsfeed/index.html'
     context_object_name = 'latest_post_list'
@@ -13,9 +14,7 @@ class IndexView(generic.ListView):
         Return the last ten published news (not including those set to be
         published in the future).
         """
-        return AllPost.objects.filter(
-            pub_date__lte=timezone.now()
-        ).order_by('-pub_date')[:10]
+        return AllPost.objects.filter(pub_date__lte=timezone.now()).order_by('-pub_date')[:10]
 
 
 class DetailView(generic.DetailView):

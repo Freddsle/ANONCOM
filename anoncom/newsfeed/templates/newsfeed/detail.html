@@ -1,4 +1,5 @@
 {% block content %}
+    <p><a href="{% url 'newsfeed:index' %}">To main page.</a></p>
     <div class="post-entry">
         <h2>{{ post.post_title }}</h2>
         <p>{{ post.post_text }}</p>
