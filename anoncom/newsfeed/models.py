@@ -8,7 +8,7 @@ from django.urls import reverse
 class AllPost(models.Model):
     post_title = models.CharField(max_length=50)
     post_text = models.TextField()
-    post_author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    post_author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=timezone.now, editable=False)
     likes = models.IntegerField(default=0)
 
@@ -26,7 +26,7 @@ class AllPost(models.Model):
 class Comment(models.Model):
     post_title = models.ForeignKey(AllPost, on_delete=models.CASCADE)
     comment_text = models.CharField(max_length=500)
-    comment_author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
+    comment_author = models.ForeignKey('users.CustomUser', on_delete=models.CASCADE)
     pub_date = models.DateTimeField('date published', default=timezone.now, editable=False)
     likes = models.IntegerField(default=0)
 

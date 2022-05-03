@@ -32,8 +32,9 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'newsfeed.apps.NewsfeedConfig',
-    'accounts.apps.AccountsConfig',
+    #'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -129,3 +130,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Login and logout
 LOGIN_REDIRECT_URL = 'newsfeed:index'
 LOGOUT_REDIRECT_URL = 'newsfeed:index'
+
+AUTH_USER_MODEL = 'users.CustomUser'
