@@ -14,7 +14,7 @@
         <h2><a href="{% url 'newsfeed:post_new' %}"> + Create New Post</a></h2>
     {% else %}
         <p>Welcome, new user.</p> 
-        <p><a href="{% url 'login' %}"> Please log in.</a> or <a href="{% url 'accounts:signup' %}"> Register.</a></p>
+        <p><a href="{% url 'login' %}"> Please log in.</a> or <a href="{% url 'signup' %}"> Register.</a></p>
     {% endif %}
 
     <h1>Latest posts:</h1>
