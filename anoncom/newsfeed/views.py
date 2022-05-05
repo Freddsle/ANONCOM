@@ -1,5 +1,6 @@
 from django.views import generic
 from django.utils import timezone
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.urls import reverse_lazy
 
 from .models import AllPost, Comment
@@ -23,22 +24,37 @@ class DetailView(generic.DetailView):
     context_object_name = 'post'
 
 
-class PostCreateView(generic.edit.CreateView):
+class PostCreateView(LoginRequiredMixin, generic.edit.CreateView):
     model = AllPost
     template_name = 'newsfeed/post_new.html'
     context_object_name = 'post'
-    fields = ['post_title', 'post_author', 'post_text']
+    fields = ['post_title', 'post_text']
+    login_url = 'login'
+
+    def form_valid(self, form):
+        form.instance.post_author = self.request.user
+        return super().form_valid(form)
 
 
-class PostUpdateView(generic.edit.UpdateView):
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.UpdateView):
     model = AllPost
     template_name = 'newsfeed/post_edit.html'
     context_object_name = 'post'
     fields = ['post_title', 'post_text']
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.post_author == self.request.user
 
 
-class PostDeleteView(generic.edit.DeleteView):
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, generic.edit.DeleteView):
     model = AllPost
     template_name = 'newsfeed/post_delete.html'
     context_object_name = 'post'
     success_url = reverse_lazy('newsfeed:index')
+    login_url = 'login'
+
+    def test_func(self):
+        obj = self.get_object()
+        return obj.post_author == self.request.user
