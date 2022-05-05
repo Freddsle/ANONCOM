@@ -32,9 +32,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'users',
+    'users.apps.UsersConfig',
     'newsfeed.apps.NewsfeedConfig',
-    #'accounts.apps.AccountsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -126,9 +125,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
 # Login and logout
 LOGIN_REDIRECT_URL = 'newsfeed:index'
 LOGOUT_REDIRECT_URL = 'newsfeed:index'
 
 AUTH_USER_MODEL = 'users.CustomUser'
+
+# Password reset
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'b@gmail.com'
+EMAIL_HOST_PASSWORD ='XXX'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
