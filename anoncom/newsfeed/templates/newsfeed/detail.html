@@ -1,13 +1,26 @@
 {% block content %}
-    <p><a href="{% url 'newsfeed:index' %}">To main page.</a></p>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81i\
+    uXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <title>{% block title %}ANONCOM{% endblock title %}</title>
+    </head>
+
+    <p><a href="{% url 'newsfeed:index' %}" >To main page.</a></p>
     <div class="post-entry">
-        <h2>{{ post.post_title }}</h2>
+        <h1>{{ post.post_title }}</h1>
         <p>{{ post.post_text }}</p>
     </div>
     <a href="{% url 'newsfeed:post_edit' post.pk %}">Edit Post</a>
     <p><a href="{% url 'newsfeed:post_delete' post.pk %}">! Delete Post !</a></p>
         
-    <h1> Comments: </h1>
+    <h2> Comments: </h2>
 
 {% endblock content %}
 
