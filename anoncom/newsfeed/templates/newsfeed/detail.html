@@ -3,20 +3,33 @@
 
 
 {% block content %}
-    <p><a href="{% url 'newsfeed:index' %}">To main page.</a></p>
+    <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+    integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81i\
+    uXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
+    <title>{% block title %}ANONCOM{% endblock title %}</title>
+    </head>
+
+    <p><a href="{% url 'newsfeed:index' %}" >To main page.</a></p>
     <div class="post-entry">
-        <h2>{{ post.post_title }}</h2>
-        <p>by {{ post.post_author }} | {{ post.pub_date }}</p>
+      <h2>{{ post.post_title }}</h2>
+         <p>by {{ post.post_author }} | {{ post.pub_date }}</p>
         <p>{{ post.post_text }}</p>
     </div>
-    {% if user.is_authenticated %}
+    
+  {% if user.is_authenticated %}
     <p> If you created this post you can <a href="{% url 'newsfeed:post_edit' post.pk %}">Edit Post</a> or
         <a href="{% url 'newsfeed:post_delete' post.pk %}">! Delete Post !</a></p>
     {% else %}
         <p>Only users can edit posts.</p>
     {% endif %}
-    <h1> Comments: </h1>
-
+    <h2> Comments: </h2>
     <div class="card-footer">
         {% for comment in post.comments.all %}
             <p>
