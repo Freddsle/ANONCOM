@@ -39,11 +39,12 @@ class Post(models.Model):
     def save(self, *args, **kwargs):
         super(Post, self).save(*args, **kwargs)
 
-        # Resizing the profile size
-        img = Image.open(self.post_image.path)
+        if self.post_image:
+            # Resizing the profile size
+            img = Image.open(self.post_image.path)
 
-        if img.height > 600 or img.width > 600:
-            output_size = (600, 600)
-            img.thumbnail(output_size)
-            img.save(self.post_image.path)
+            if img.height > 600 or img.width > 600:
+                output_size = (600, 600)
+                img.thumbnail(output_size)
+                img.save(self.post_image.path)
 
