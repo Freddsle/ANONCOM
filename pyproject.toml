@@ -8,6 +8,9 @@ authors = ["Yuliya Burankova, Anna Toidze, Dmitrii Podgalo, Elena Grigoreva, Ale
 [tool.poetry.dependencies]
 python = ">=3.9,<3.11"
 Django = "^4.0.4"
-pytest-django = "^4.5.2"
-
+asgiref = "^3.5.1"
+certifi = "^2021.10.8"
+django-crispy-forms = "^1.14.0"
+Pillow = "^9.1.0"
+sqlparse = "^0.4.2"
 
