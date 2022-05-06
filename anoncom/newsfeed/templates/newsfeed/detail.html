@@ -23,19 +23,37 @@
         <p>{{ post.post_text }}</p>
     </div>
     
-  {% if user.is_authenticated %}
-    <p> If you created this post you can <a href="{% url 'newsfeed:post_edit' post.pk %}">Edit Post</a> or
+    {% if user.is_authenticated %}
+        <p> If you created this post you can <a href="{% url 'newsfeed:post_edit' post.pk %}">Edit Post</a> or
         <a href="{% url 'newsfeed:post_delete' post.pk %}">! Delete Post !</a></p>
     {% else %}
         <p>Only users can edit posts.</p>
     {% endif %}
+
     <h2> Comments: </h2>
     <div class="card-footer">
-        {% for comment in post.comments.all %}
-            <p>
-            <span class="font-weight-bold">{{ comment.comment_author }} &middot;</span>
-            {{ comment.comment_text }}
-            </p>
-        {% endfor %}
+        <h2>Leave your comment!</h2>
+            <div id="comments_section">
+                {% if user.is_authenticated %}
+                <form method="POST"> {% csrf_token %}
+                    <div class="form-group"> {{ comment_form }}
+                    <button class="btn btn-info" type="submit">Add comment <i class="fas fa-comments"></i></button>
+                    </div>
+                </form>
+                {% else %}
+                    <a class="btn btn-outline-info" href="{% url 'login' %}">Log in to add a comment!</a><br>
+                {% endif %}
+
+        {% if post.comments.all %}
+            {% for comment in post.comments.all %}
+                <p>
+                <span class="font-weight-bold">{{ comment.comment_author }} &middot;</span>
+                {{ comment.comment_text }}
+                </p>
+            {% endfor %}
+        {% else %}
+                <strong class="text-secondary">No comments yet...</strong>
+        
+        {% endif %}
 
 {% endblock content %}

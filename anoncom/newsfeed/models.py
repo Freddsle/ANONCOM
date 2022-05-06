@@ -21,7 +21,11 @@ class AllPost(models.Model):
         return now - datetime.timedelta(days=1) <= self.pub_date <= now
 
     def get_absolute_url(self):
-        return reverse('newsfeed:index', args=[str(self.id)])
+        return reverse('newsfeed:detail', args=[str(self.id)])
+
+    @property
+    def number_of_comments(self):
+        return Comment.objects.filter(post_title=self).count()
 
 
 class Comment(models.Model):
@@ -31,8 +35,8 @@ class Comment(models.Model):
     pub_date = models.DateTimeField('date published', auto_now_add=True, editable=False)
     likes = models.IntegerField(default=0)
 
-    def __str__(self):
-        return self.comment_text
+    def __str__(self): 
+        return 'Comment by {} on {}'.format(self.comment_author, self.post_title) 
 
     def get_absolute_url(self):
         return reverse('newsfeed:index')
