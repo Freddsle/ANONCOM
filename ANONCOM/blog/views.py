@@ -74,10 +74,9 @@ class PostDetailView(DetailView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
+    # Template post_form.html
     model = Post
     form_class = PostUpdateForm
-
-    # Template post_form.html
 
     # Automatically setting user as author which is logged in
     def form_valid(self, form):

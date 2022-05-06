@@ -32,7 +32,7 @@
                             <div class="media-list">
                                 {% for comment in post_comments %}
                                     <article class="media content-section">
-                                        <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}">
+                                        <img class="rounded-circle article-img" src="{{ comment.user.profile.image.url }}">
                                         <div class="media-body">
                                             <div class="article-metadata">
                                               <a class="mr-2" href="{% url 'user-posts' comment.user %}">{{ comment.user }}</a>
