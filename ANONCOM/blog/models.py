@@ -5,6 +5,16 @@ from django.urls import reverse
 from PIL import Image
 
 
+class Comments(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    date_posted = models.DateTimeField(default=timezone.now)
+    post = models.ForeignKey('Post', on_delete=models.CASCADE)
+    content = models.TextField()
+
+    def __str__(self):
+        return self.user.username
+
+
 class Post(models.Model):
     title = models.CharField(max_length=100)
     content = models.TextField()
@@ -19,9 +29,9 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
-    # # Redirect to detail page when post is created
+    # Redirect to detail page when post is created
     def get_absolute_url(self):
-        return reverse('post-detail', kwargs={'pk': self.pk} )
+        return reverse('post-detail', kwargs={'pk': self.pk})
 
         # In case you want to go to home page instead
         # return reverse('blog-home')

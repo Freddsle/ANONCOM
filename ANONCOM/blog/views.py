@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.contrib.auth.models import User
 from django.views.generic import (ListView,
@@ -6,7 +6,8 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
-from .models import Post
+from .models import Post, Comments
+from .forms import CommentsForm
 
 
 def home(request):
@@ -45,6 +46,31 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     # Template post_detail.html
     model = Post
+    form = CommentsForm
+
+    def post(self, request, *args, **kwargs):
+        form = CommentsForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.user = request.user
+            form.instance.post = post
+            form.save()
+            # return redirect('blog-home')
+            return redirect(reverse('post-detail', kwargs={'pk': post.pk}))
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+    def get_context_data(self, **kwargs):
+        post_comments_count = Comments.objects.all().filter(post=self.object.id).count()
+        post_comments = Comments.objects.all().filter(post=self.object.id)
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form': self.form,
+            'post_comments': post_comments,
+            'post_comments_count': post_comments_count,
+        })
+        return context
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
