@@ -19,8 +19,7 @@ from django.urls import include, path
 urlpatterns = [
     path('newsfeed/', include('newsfeed.urls')),
     path('admin/', admin.site.urls),
-    # path('accounts/', include('django.contrib.auth.urls')),
-    # path('accounts/', include('accounts.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
     path('users/', include('users.urls')),
     path('users/', include('django.contrib.auth.urls')),
 ]
