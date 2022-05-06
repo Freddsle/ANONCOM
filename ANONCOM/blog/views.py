@@ -7,7 +7,7 @@ from django.views.generic import (ListView,
                                   UpdateView,
                                   DeleteView)
 from .models import Post, Comments
-from .forms import CommentsForm
+from .forms import PostUpdateForm, CommentsForm
 
 
 def home(request):
@@ -74,9 +74,10 @@ class PostDetailView(DetailView):
 
 
 class PostCreateView(LoginRequiredMixin, CreateView):
-    # Template post_form.html
     model = Post
-    fields = ['title', 'content']
+    form_class = PostUpdateForm
+
+    # Template post_form.html
 
     # Automatically setting user as author which is logged in
     def form_valid(self, form):
@@ -87,7 +88,8 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     # Template post_update_form.html
     model = Post
-    fields = ['title', 'content']
+    form_class = PostUpdateForm
+
     template_name_suffix = '_update_form'
 
     # Automatically setting user as author which is logged in
