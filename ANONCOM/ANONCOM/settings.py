@@ -26,8 +26,7 @@ SECRET_KEY = 'django-insecure-c=^62i@5+(pkqhl9#xi6$_3us%qr(+f_#3l%-_mr&$h%gdt8y(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['167.172.37.214']
-
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '167.172.37.214']
 
 # Application definition
 
@@ -142,4 +141,3 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = os.environ.get('EMAIL_USER')
 EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_PASS')
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
