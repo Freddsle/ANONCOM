@@ -8,7 +8,7 @@ from django.views.generic import (ListView,
                                   DeleteView)
 
 from .models import Post, Post_anon, Comments, AnonComments
-from .forms import CommentsForm, AnonCommentsForm
+from .forms import PostUpdateForm, CommentsForm, AnonCommentsForm
 
 
 def home(request):
