@@ -7,7 +7,8 @@ from .views import (PostListView,
                     PostCreateAnonView,
                     PostUpdateView,
                     PostDeleteView,
-                    UserPostListView)
+                    UserPostListView,
+                    AnonPostDetailView)
 
 urlpatterns = [
     path('', PostListView.as_view(), name='blog-home'),
@@ -21,5 +22,5 @@ urlpatterns = [
     
     path('anon-posts/', PostAnonListView.as_view(), name='anon-posts'),
     path('post/new-anon/', PostCreateAnonView.as_view(), name='post-create-anon'),
-    path('anon-post/<int:pk>/', PostDetailView.as_view(), name='anon-post-detail'),
+    path('anon-post/<int:pk>/', AnonPostDetailView.as_view(), name='anon-post-detail'),
 ]
