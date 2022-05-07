@@ -85,9 +85,8 @@ class PostDetailView(DetailView):
         return context
 
 
-
 class AnonPostDetailView(DetailView):
-    # Template post_detail.html
+    # Template post_anon_detail.html
     model = Post_anon
     form = AnonCommentsForm
 
