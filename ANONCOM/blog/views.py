@@ -6,6 +6,7 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
+
 from .models import Post, Post_anon, Comments, AnonComments
 from .forms import CommentsForm, AnonCommentsForm
 
@@ -117,7 +118,7 @@ class AnonPostDetailView(DetailView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     # Template post_form.html
     model = Post
-    fields = ['title', 'content']
+    form_class = PostUpdateForm
 
     # Automatically setting user as author which is logged in
     def form_valid(self, form):
@@ -134,7 +135,8 @@ class PostCreateAnonView(CreateView):
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     # Template post_update_form.html
     model = Post
-    fields = ['title', 'content']
+    form_class = PostUpdateForm
+
     template_name_suffix = '_update_form'
 
     # Automatically setting user as author which is logged in

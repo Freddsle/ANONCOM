@@ -2,7 +2,7 @@
 {% load crispy_forms_tags %}
 {% block content %}
     <div>
-        <form method="POST">
+        <form method="POST" enctype="multipart/form-data">
             <!--  CSRF Token - security          -->
             {% csrf_token %}
             <fieldset class="form-group">
@@ -10,7 +10,7 @@
                 {{ form|crispy }}
             </fieldset>
             <div class="form-group">
-                <button class="btn btn-outline-info" type="submit">Update</button>
+                <button class="btn btn-outline-primary" type="submit">Update</button>
             </div>
         </form>
     </div>

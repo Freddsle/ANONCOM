@@ -1,7 +1,7 @@
 # ANONCOM
 ANONCOM for IB.
 
-
+ANONCOM (ANONimous COMplaints) is a site created as a training task for the Python programming course. The aim of the project is to create a space where students of Bioinformatics Institute can share their ideas and opinions.
 
 # Install
 
@@ -27,7 +27,10 @@ pip install wheel==0.37.0
 # Install requirements
 pip install -r ./requirements.txt
 
-# Run files (with python 3.9 or 3.10)
+# Run local server (with python 3.9 or 3.10)
+./manage.py makemigrations
+./manage.py migrate
+./manage.py runserver
 
 # Exit fron venv:
 deactivate
@@ -51,5 +54,8 @@ cd ANONCOM/
 poetry env use python3
 poetry install 
 
-# Run file (with python 3.9 or 3.10)
+# Run local server (with python 3.9 or 3.10)
+./manage.py makemigrations
+./manage.py migrate
+./manage.py runserver
 ```

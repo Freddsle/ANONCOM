@@ -2,12 +2,12 @@ from django import forms
 from .models import Comments, AnonComments
 from .models import Post
 
-#
-# # Update Image
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = Post
-#         fields = ['post_image']
+
+# Update Image
+class PostUpdateForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'post_image']
 
 
 class CommentsForm(forms.ModelForm):
