@@ -4,7 +4,7 @@
     {% for post in posts_anon %}
         <article class="media content-section">
           <div class="media-body">
-            <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+            <h2><a class="article-title" href="{% url 'anon-post-detail' post.id %}">{{ post.title }}</a></h2>
             <p class="article-content">{{ post.content }}</p>
           </div>
         </article>
