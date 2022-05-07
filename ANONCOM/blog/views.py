@@ -6,13 +6,13 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
-from .models import Post, Comments
+from .models import Post, Post_anon, Comments
 from .forms import CommentsForm
 
 
 def home(request):
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
     }
     return render(request, 'blog/home.html', context)
 
@@ -23,6 +23,17 @@ class PostListView(ListView):
     template_name = 'blog/home.html'
     # Change object name to loop over
     context_object_name = 'posts'
+    # Ordering the posts according to date - newest first
+    ordering = ['-date_posted']
+    # Pagination
+    paginate_by = 5
+
+class PostAnonListView(ListView):
+    model = Post_anon
+    # HTML template
+    template_name = 'blog/posts_anon_feed.html'
+    # Change object name to loop over
+    context_object_name = 'posts-anon'
     # Ordering the posts according to date - newest first
     ordering = ['-date_posted']
     # Pagination
@@ -79,6 +90,16 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     fields = ['title', 'content']
 
     # Automatically setting user as author which is logged in
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class PostCreateAnonView(LoginRequiredMixin, CreateView):
+    # Template post_anon.html
+    model = Post
+    fields = ['title', 'content']
+
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
