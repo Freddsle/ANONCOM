@@ -3,6 +3,8 @@ ANONCOM for IB.
 
 ANONCOM (ANONimous COMplaints) is a site created as a training task for the Python programming course. The aim of the project is to create a space where students of Bioinformatics Institute can share their ideas and opinions.
 
+You can see [slides](https://docs.google.com/presentation/d/134CbFCncfheuTD4zeGcW0E3c93m8j4XH6NRvSrehBNo/edit#slide=id.g126fdb5b6c4_0_132).
+
 # Install
 
 ## Install and run with pip (Ubuntu)
