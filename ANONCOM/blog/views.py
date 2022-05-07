@@ -6,8 +6,8 @@ from django.views.generic import (ListView,
                                   CreateView,
                                   UpdateView,
                                   DeleteView)
-from .models import Post, Post_anon, Comments
-from .forms import CommentsForm
+from .models import Post, Post_anon, Comments, AnonComments
+from .forms import CommentsForm, AnonCommentsForm
 
 
 def home(request):
@@ -28,12 +28,13 @@ class PostListView(ListView):
     # Pagination
     paginate_by = 5
 
+
 class PostAnonListView(ListView):
     model = Post_anon
     # HTML template
     template_name = 'blog/posts_anon_feed.html'
     # Change object name to loop over
-    context_object_name = 'posts-anon'
+    context_object_name = 'posts_anon'
     # Ordering the posts according to date - newest first
     ordering = ['-date_posted']
     # Pagination
@@ -84,6 +85,36 @@ class PostDetailView(DetailView):
         return context
 
 
+
+class AnonPostDetailView(DetailView):
+    # Template post_detail.html
+    model = Post_anon
+    form = AnonCommentsForm
+
+    def post(self, request, *args, **kwargs):
+        form = AnonCommentsForm(request.POST)
+        if form.is_valid():
+            post = self.get_object()
+            form.instance.post = post
+            form.save()
+            # return redirect('blog-home')
+            return redirect(reverse('anon-post-detail', kwargs={'pk': post.pk}))
+
+    def get_success_url(self):
+        return self.object.get_absolute_url()
+
+    def get_context_data(self, **kwargs):
+        post_comments_count = AnonComments.objects.all().filter(post=self.object.id).count()
+        post_comments = AnonComments.objects.all().filter(post=self.object.id)
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'form': self.form,
+            'post_comments': post_comments,
+            'post_comments_count': post_comments_count,
+        })
+        return context
+
+
 class PostCreateView(LoginRequiredMixin, CreateView):
     # Template post_form.html
     model = Post
@@ -95,14 +126,10 @@ class PostCreateView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-class PostCreateAnonView(LoginRequiredMixin, CreateView):
+class PostCreateAnonView(CreateView):
     # Template post_anon.html
-    model = Post
+    model = Post_anon
     fields = ['title', 'content']
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
 
 
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
