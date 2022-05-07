@@ -1,5 +1,5 @@
 from django import forms
-from .models import Comments
+from .models import Comments, AnonComments
 from .models import Post
 
 
@@ -19,4 +19,16 @@ class CommentsForm(forms.ModelForm):
 
     class Meta:
         model = Comments
+        fields = ('content', )
+
+
+class AnonCommentsForm(forms.ModelForm):
+    content = forms.CharField(widget=forms.Textarea(attrs={
+        'class': 'md-textarea form-control',
+        'placeholder': 'Comment here',
+        'rows': '4',
+    }))
+
+    class Meta:
+        model = AnonComments
         fields = ('content', )
